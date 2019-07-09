@@ -12,10 +12,12 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule} from '@angular/fire';
 
 import {environment} from'../environments/environment';
+import { UserProfileComponent } from './user/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
