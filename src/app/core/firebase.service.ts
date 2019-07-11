@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 
 // The T is a Typescript generic that allows us to use our custom interfaces
@@ -29,27 +29,27 @@ export class FirebaseService {
   doc$<T>(ref: DocPredicate<T>): Observable<T> {
     return this.doc(ref).snapshotChanges().pipe(map(doc => {
       return doc.payload.data() as T;
-    }))
+    }));
   }
 
   col$<T>(ref: CollectionPredicate<T>, queryFn?): Observable<T[]> {
     return this.col(ref, queryFn).snapshotChanges().pipe(map(docs => {
       return docs.map(a => a.payload.doc.data()) as T[];
-    }))
+    }));
   }
 
   // Firebase server timestamp
   get timestamp() {
-    return firebase.database.ServerValue.TIMESTAMP;
+    return firebase.firestore.FieldValue.serverTimestamp();
   }
 
-  //****Custom Methods
+  // ****Custom Methods
   // Update a Document
   update<T>(ref: DocPredicate<T>, data: any) {
     return this.doc(ref).update({
       ...data,
       updatedAt: this.timestamp
-    })
+    });
   }
 
   // Delete a document
@@ -64,15 +64,15 @@ export class FirebaseService {
       ...data,
       updatedAt: timestamp,
       createdAt: timestamp
-    })
+    });
   }
   // Create a Doc with an automated ID
   add<T>(ref: CollectionPredicate<T>, data) {
-    const timestamp = this.timestamp
+    const timestamp = this.timestamp;
     return this.col(ref).add({
       ...data,
       updatedAt: timestamp,
       createdAt: timestamp
-    })
+    });
   }
 }

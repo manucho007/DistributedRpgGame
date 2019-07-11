@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { CoreModule } from "../app/core/core.module";
+import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,13 +11,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { AngularFireModule} from '@angular/fire';
 
-import {environment} from'../environments/environment';
-import { UserProfileComponent } from './user/user-profile/user-profile.component';
+import {environment} from '../environments/environment';
+import {UserLoginComponent} from './user/user-login/user-login.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserProfileComponent
+    UserLoginComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +27,8 @@ import { UserProfileComponent } from './user/user-profile/user-profile.component
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireStorageModule,
-    AngularFirestoreModule.enablePersistence()
+    AngularFirestoreModule.enablePersistence(),
+    FormsModule
 
   ],
   providers: [],
