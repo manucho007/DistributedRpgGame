@@ -1,3 +1,11 @@
-<p>
+<div class="container">
   board works!
-</p>
+  <button class="button" (click)="createNewGame()">
+   Test
+  </button>
+    <div *ngFor="let user of users |async "  class="mdl-cell mdl-cell&#45;&#45;4-col">
+
+      <div>{{user.displayName}}</div>
+
+    </div>
+</div>

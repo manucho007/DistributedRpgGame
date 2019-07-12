@@ -3,9 +3,9 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { switchMap, } from "rxjs/operators";
-import { User } from "../interfaces/user";
-import { auth } from "firebase/app";
+import { switchMap, } from 'rxjs/operators';
+import { User } from '../interfaces/user';
+import { auth } from 'firebase/app';
 @Injectable({
   providedIn: 'root'
 })
@@ -22,20 +22,20 @@ export class AuthService {
       switchMap(user => {
         // Logged in
         if (user) {
-          return this.afs.doc<User>(`users/${user.uid}`).valueChanges()
+          return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
           // Logged out
-          return of(null)
+          return of(null);
         }
       })
-    )
+    );
   }
 
   // Triggers the Provider's popup window and authenticates the user.
   // It returns a Promise that resolves with the auth credential.
 
   googleLogin() {
-    const provider = new auth.GoogleAuthProvider()
+    const provider = new auth.GoogleAuthProvider();
     return this.oAuthLogin(provider);
   }
 
@@ -58,7 +58,7 @@ export class AuthService {
   private oAuthLogin(provider) {
     return this.afAuth.auth.signInWithPopup(provider)
       .then((credential) => {
-        return this.updateUserData(credential.user)
+        return this.updateUserData(credential.user);
       })
       .catch(error => this.handleError(error));
   }
@@ -79,7 +79,7 @@ export class AuthService {
 
   // If error, console log and notify user
   private handleError(error) {
-    console.error(error)
+    console.error(error);
   }
 
   async signOut() {
