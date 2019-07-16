@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {FirebaseService} from '../../core/firebase.service';
 import {Observable} from 'rxjs';
 import {User} from '../../interfaces/user';
-import {Item} from '../../interfaces/item';
+import {Board} from '../../interfaces/board';
+import {AuthService} from '../../core/auth.service';
+
 
 @Component({
   selector: 'app-board',
@@ -12,26 +14,54 @@ import {Item} from '../../interfaces/item';
 })
 export class BoardComponent implements OnInit {
 
-  users: Observable<User[]>;
-  item: Item = {
-    name: '555',
-    value: 3
-  };
-  constructor(private route: ActivatedRoute, public db: FirebaseService) { }
 
-  ngOnInit() {
-    this.users = this.db.col$(`users`);
-    console.log(this.users);
+
+  board: Observable<Board>;
+  currentUser: User;
+
+  userScore = 0;
+
+  constructor(private router: Router, public db: FirebaseService,
+              public auth: AuthService) {
+
   }
 
-  createNewGame() {
-    /*this.db.add('items', this.item)
+
+   ngOnInit() {
+     const url = window.location.pathname;
+     const id = url.substring(url.lastIndexOf('/') + 1);
+     this.board = this.db.doc$(`boards/${id}`);
+  }
+
+  OnSpinTheWheel() {
+    this.auth.user.subscribe(user => {
+      this.currentUser = user as User;
+      const url = window.location.pathname;
+      const id = url.substring(url.lastIndexOf('/') + 1);
+      const prevScore = this.userScore;
+      this.userScore = this.userScore + this.spinTheWheel();
+      this.db.incrementUserScore('boards', id, user, this.userScore, prevScore);
+    });
+  }
+
+  private spinTheWheel(): number {
+    // some one please write logic to this part
+    return 3;
+  }
+
+
+  endGame() {
+
+    const url = window.location.pathname;
+    const id = url.substring(url.lastIndexOf('/') + 1);
+    this.db.update(`boards/${id}`, {isActive: false})
       .catch((err) => {
         console.log(err);
-    });*/
+      });
 
-    const users = this.db.col('users');
-    console.log(users);
+    this.router.navigateByUrl('/scoreboard');
+
   }
+
 
 }

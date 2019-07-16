@@ -1,1 +1,14 @@
 <h4>scoreboard works!</h4>
+
+<div *ngFor="let board of boards| async">
+
+  <span>{{board.startTime}}</span><br /> the time is in epoch time..convert it to timestamp ))
+  <span>{{board.endTime}}</span><br />
+
+  <div class="" *ngFor="let user of board.users">
+    <span>{{user.user.displayName}}</span>
+    <span>{{user.score}}</span>
+  </div>
+
+
+</div>

@@ -1,7 +1,10 @@
 <nav class="level">
-  <p class="level-item has-text-centered">
-    <a class="link is-info" (click)="onClickBoard()">New Game</a>
-  </p>
+  <div class="level-item has-text-centered">
+    <button class="link is-info" (click)="onCreateNewBoard()">Create Game</button>
+  </div>
+  <div class="level-item has-text-centered">
+    <button class="link is-info" (click)="onJoinExistingGame()">Join Game</button>
+  </div>
   <p class="title level-item has-text-centered">Inno RPG</p>
   <p class="level-item has-text-centered">
     <a class="link is-info" (click)="onClickScoreboard()">Scoreboard</a>

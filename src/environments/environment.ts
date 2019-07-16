@@ -5,13 +5,13 @@
 export const environment = {
   production: false,
   firebase : {
-    apiKey: "AIzaSyD4slfUcY-JzyXM-0F2qVotaSo-wao_dFU",
-    authDomain: "innorpg.firebaseapp.com",
-    databaseURL: "https://innorpg.firebaseio.com",
-    projectId: "innorpg",
-    storageBucket: "innorpg.appspot.com",
-    messagingSenderId: "219171601340",
-    appId: "1:219171601340:web:64ce80dfd5393ff2"
+    apiKey: 'AIzaSyD4slfUcY-JzyXM-0F2qVotaSo-wao_dFU',
+    authDomain: 'innorpg.firebaseapp.com',
+    databaseURL: 'https://innorpg.firebaseio.com',
+    projectId: 'innorpg',
+    storageBucket: 'innorpg.appspot.com',
+    messagingSenderId: '219171601340',
+    appId: '1:219171601340:web:64ce80dfd5393ff2'
   }
 };
 

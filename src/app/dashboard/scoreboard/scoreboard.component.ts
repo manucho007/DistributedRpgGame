@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from 'rxjs';
+import {Board} from '../../interfaces/board';
+import {FirebaseService} from '../../core/firebase.service';
 
 @Component({
   selector: 'app-scoreboard',
@@ -7,8 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScoreBoardComponent implements OnInit {
 
-  constructor() { }
+  boards: Observable<Board[]>;
+  constructor(public db: FirebaseService) { }
 
   ngOnInit() {
+    this.boards = this.db.col$(`boards`);
   }
 }
