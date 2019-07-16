@@ -1,11 +1,18 @@
 <div class="container">
   board works!
-  <button class="button" (click)="createNewGame()">
-   Test
-  </button>
-    <div *ngFor="let user of users |async "  class="mdl-cell mdl-cell&#45;&#45;4-col">
 
-      <div>{{user.displayName}}</div>
+  <div *ngIf="board | async as currentBoard">
+  <div class="" *ngFor="let users of currentBoard.users">
+    <span>{{users.user.displayName}}</span>
+    <span>{{users.score}}</span>
+  </div>
 
-    </div>
+  </div>
+
+  <countdown [config]="{leftTime: 60*5}" (finished)="endGame()">$!m!:$!s!</countdown>
+
+  <div class="level-item has-text-centered">
+    <button class="link is-info" (click)="OnSpinTheWheel()">spin</button>
+  </div>
+
 </div>

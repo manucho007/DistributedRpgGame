@@ -6,17 +6,18 @@ import { BoardComponent } from './dashboard/board/board.component';
 import {UserLoginComponent} from './user/user-login/user-login.component';
 import { AngularFirestoreModule} from '@angular/fire/firestore';
 import {ScoreBoardComponent} from './dashboard/scoreboard/scoreboard.component';
+import {CountdownModule} from 'ngx-countdown';
 
 const routes: Routes = [
   { path: 'login', component: UserLoginComponent },
-  { path: 'board', component: BoardComponent },
+  { path: `board/:id`, component: BoardComponent },
   { path: 'home', component: HomeComponent },
   { path: 'scoreboard', component: ScoreBoardComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes),
-  CommonModule],
+    CommonModule, CountdownModule],
   exports: [RouterModule],
   providers: [AngularFirestoreModule],
   declarations: [HomeComponent, BoardComponent, ScoreBoardComponent]

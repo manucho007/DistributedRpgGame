@@ -1,9 +1,9 @@
 import { User } from './user';
-import { Position } from './position';
 
 export interface Board {
-    steps: number;
-    positions: Position[];
-    timer: number;
-    users: [{uid: User}];
+    spins: number;
+    startTime: number;
+    endTime: number;
+    users: {user: User, score: number}[];
+    isActive: boolean;
 }
