@@ -4,7 +4,7 @@ import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
-import {User} from '../interfaces/user';
+import { User } from '../interfaces/user';
 
 
 // The T is a Typescript generic that allows us to use our custom interfaces
@@ -40,6 +40,17 @@ export class FirebaseService {
     }));
   }
 
+  // return the collection with the ids
+  colWithIds$<T>(ref: CollectionPredicate<T>, queryFn?): Observable<T[]> {
+    return this.col(ref, queryFn).snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        return { id, ...data };
+      }) as T[];
+    }));
+  }
+
   // Firebase server timestamp
   get timestamp() {
     return firebase.firestore.FieldValue.serverTimestamp();
@@ -63,10 +74,10 @@ export class FirebaseService {
 
 
     boardRef.update({
-      users: firebase.firestore.FieldValue.arrayUnion({user: data, score: 0}),
+      users: firebase.firestore.FieldValue.arrayUnion({ user: data, score: 0 }),
       updatedAt: timestamp,
-  }).catch((err) => {
-    console.log(err);
+    }).catch((err) => {
+      console.log(err);
     });
   }
 
@@ -76,16 +87,16 @@ export class FirebaseService {
 
     const boardRef = this.afs.collection(path).doc(ref);
     boardRef.update({
-      users: firebase.firestore.FieldValue.arrayRemove({user, score: prevScore})
+      users: firebase.firestore.FieldValue.arrayRemove({ user, score: prevScore })
     }).then(() => {
       boardRef.update({
         spins: firebase.firestore.FieldValue.increment(1),
         updatedAt: timestamp,
-        users: firebase.firestore.FieldValue.arrayUnion({user, score})
+        users: firebase.firestore.FieldValue.arrayUnion({ user, score })
       })
         .catch((err) => {
-        console.log(err);
-      });
+          console.log(err);
+        });
     })
       .catch((err) => {
         console.log(err);
