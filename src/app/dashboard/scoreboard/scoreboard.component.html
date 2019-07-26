@@ -1,14 +1,40 @@
 <h4>scoreboard works!</h4>
 
-<div *ngFor="let board of boards| async">
+<div>
 
-  <span>{{board.startTime}}</span><br /> the time is in epoch time..convert it to timestamp ))
-  <span>{{board.endTime}}</span><br />
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Postion</th>
+        <th>Game ID</th>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tfoot>
+      <tr>
+        <th>Postion</th>
+        <th>Game ID</th>
+        <th>Name</th>
+        <th>Score</th>
+      </tr>
+    </tfoot>
+    <tbody *ngFor="let board of boards| async; index as i">
+      <tr *ngFor="let user of board.users; index as t">
+        <th>{{i+1}}</th>
+        <th>{{board.id}}</th>
+        <th>{{user.user.displayName}}</th>
+        <th>{{user.score}}</th>
+      </tr>
+    </tbody>
+  </table>
+  <span>{{board.startTime |date:'medium' }}</span><br />
+  <span>{{board.endTime |date:'medium'}}</span><br />
 
-  <div class="" *ngFor="let user of board.users">
+  <!-- <div class="" *ngFor="let user of board.users">
     <span>{{user.user.displayName}}</span>
     <span>{{user.score}}</span>
-  </div>
+  </div> -->
 
 
 </div>

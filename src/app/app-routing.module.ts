@@ -9,6 +9,7 @@ import {ScoreBoardComponent} from './dashboard/scoreboard/scoreboard.component';
 import {CountdownModule} from 'ngx-countdown';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'login', component: UserLoginComponent },
   { path: `board/:id`, component: BoardComponent },
   { path: 'home', component: HomeComponent },
